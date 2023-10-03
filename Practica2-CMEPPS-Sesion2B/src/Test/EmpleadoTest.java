@@ -19,10 +19,12 @@ class EmpleadoTest {
 	private int horasExtraEmpleado1 = 0;
 	private int ventaMesEmpleado1 = 0;
 	private float nominaBrutaEmpleado1 = 2000;
+	private float nominaNetaEmpleado1 = 0;
 
 	private int horasExtraEmpleado2 = 0;
 	private int ventaMesEmpleado2 = 0;
 	private float nominaBrutaEmpleado2 = 2500;
+	private float nominaNetaEmpleado2 = 0;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -37,10 +39,12 @@ class EmpleadoTest {
 		empleado1.setHorasExtra(horasExtraEmpleado1);
 		empleado1.setVentasMes(ventaMesEmpleado1);
 		empleado1.setNominaBruta(nominaBrutaEmpleado1);
+		empleado1.setNominaNeta(nominaNetaEmpleado1);
 
 		empleado2.setHorasExtra(horasExtraEmpleado2);
 		empleado2.setVentasMes(ventaMesEmpleado2);
 		empleado2.setNominaBruta(nominaBrutaEmpleado2);
+		empleado2.setNominaNeta(nominaNetaEmpleado2);
 	}
 
 	@AfterEach
@@ -116,5 +120,29 @@ class EmpleadoTest {
 		float resultado = this.empleado1.calculoNominaBruta(empleado1.getTipo(), ventaMesEmpleado1,
 				horasExtraEmpleado1);
 		assertEquals(2030, resultado);
+	}
+	
+	@Test
+	void testCalculoNominaNetaConNominaBrutaNegativa() {
+		nominaBrutaEmpleado1 = -50;
+		float resultado = this.empleado1.calculoNominaNeta(nominaBrutaEmpleado1);
+		assertEquals(0, resultado);
+	}
+	
+	@Test
+	void testCalculoNominaNetaConNominaBrutaEntre2100yMenos2500() {
+		nominaNetaEmpleado1 = 1870;
+		nominaBrutaEmpleado1 = 2200;
+		float resultado = this.empleado1.calculoNominaNeta(nominaBrutaEmpleado1);
+		assertEquals(nominaNetaEmpleado1, resultado);
+	}
+	
+	
+	@Test
+	void testCalculoNominaNetaConNominaBrutaMayorOIgual2500() {
+		nominaNetaEmpleado2 = 2214;
+		nominaBrutaEmpleado2 = 2700;
+		float resultado = this.empleado2.calculoNominaNeta(nominaBrutaEmpleado2);
+		assertEquals(nominaNetaEmpleado2, resultado);
 	}
 }
