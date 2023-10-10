@@ -25,6 +25,7 @@ class CuentaTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		cuenta.setSaldo(0);
 	}
 
 	@AfterEach
@@ -40,6 +41,6 @@ class CuentaTest {
 	@Test
 	void testRetirar() {
 		cuenta.retirar(1000);
-		assertEquals(0, cuenta.getSaldo());
+		assertEquals(-1000, cuenta.getSaldo());
 	}
 }

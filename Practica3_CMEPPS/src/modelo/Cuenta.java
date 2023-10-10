@@ -10,14 +10,18 @@ public class Cuenta {
 	}
 
 	public void ingresar(double monto) {
-
+		this.setSaldo(this.getSaldo() + monto);
 	}
 
 	public double getSaldo() {
-		return 0;
+		return this.saldo;
 	}
 
 	public void retirar(double monto) {
+		this.setSaldo(this.getSaldo() - monto);
+	}
 
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 }
