@@ -13,15 +13,15 @@ public class Cuenta {
 		this.setSaldo(this.getSaldo() + monto);
 	}
 
-	public double getSaldo() {
-		return this.saldo;
-	}
-
 	public void retirar(double monto) {
 		this.setSaldo(this.getSaldo() - monto);
 	}
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public double getSaldo() {
+		return this.saldo;
 	}
 }
