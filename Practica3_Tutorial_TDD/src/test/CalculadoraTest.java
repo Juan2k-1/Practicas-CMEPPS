@@ -30,12 +30,22 @@ class CalculadoraTest {
 
 	@Test
 	void testSuma() {
-		assertEquals(5, Calculadora.suma(2,3));
+		assertEquals(5, Calculadora.suma(2, 3));
 	}
-	
+
 	@Test
-	void testRuma() {
-		assertEquals(-1, Calculadora.resta(2,3));
+	void testResta() {
+		assertEquals(-1, Calculadora.resta(2, 3));
+	}
+
+	@Test
+	void testMultiplica() {
+		assertEquals(6, Calculadora.multiplica(2, 3));
+	}
+
+	@Test
+	void testDivide() {
+		assertEquals(0, Calculadora.divide(2, 3));
 	}
 
 }
