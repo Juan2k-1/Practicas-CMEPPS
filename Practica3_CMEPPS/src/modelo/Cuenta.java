@@ -1,7 +1,7 @@
 package modelo;
 
 public class Cuenta {
-	
+
 	private double saldo;
 
 	public Cuenta(String numeroCuenta, String titular, double saldo) {
@@ -10,11 +10,14 @@ public class Cuenta {
 	}
 
 	public void ingresar(double monto) {
-		
+
 	}
 
 	public double getSaldo() {
-		return 1000;
+		return 0;
 	}
 
+	public void retirar(double monto) {
+
+	}
 }

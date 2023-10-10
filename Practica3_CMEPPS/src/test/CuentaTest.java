@@ -16,7 +16,7 @@ class CuentaTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		cuenta = new Cuenta("12345", "Manuel", 0);
+		cuenta = new Cuenta("12345", "Manuel", 0);		
 	}
 
 	@AfterAll
@@ -39,7 +39,7 @@ class CuentaTest {
 
 	@Test
 	void testRetirar() {
-
+		cuenta.retirar(1000);
+		assertEquals(0, cuenta.getSaldo());
 	}
-
 }
