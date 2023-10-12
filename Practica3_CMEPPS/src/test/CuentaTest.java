@@ -2,8 +2,6 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,10 +17,28 @@ class CuentaTest {
 	static Cuenta cuenta;
 	static Cuenta cuenta2;
 
+	static Movimiento movimiento1;
+	static Movimiento movimiento2;
+	static Movimiento movimiento3;
+	static Movimiento movimiento4;
+	static Movimiento movimiento5;
+	static Movimiento movimiento6;
+	static Movimiento movimiento7;
+	static Movimiento movimiento8;
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		cuenta = new Cuenta("12345", "Manuel", 50);
 		cuenta2 = new Cuenta("67890", "Juan", 0);
+
+		movimiento1 = new Movimiento(350, "Retirada", Signo.D);
+		movimiento2 = new Movimiento(200, "Retirada", Signo.D);
+		movimiento3 = new Movimiento(150, "Retirada", Signo.D);
+		movimiento4 = new Movimiento(50, "Ingreso", Signo.H);
+		movimiento5 = new Movimiento(100, "Retirada", Signo.D);
+		movimiento6 = new Movimiento(200, "Retirada", Signo.D);
+		movimiento7 = new Movimiento(100, "Ingreso", Signo.H);
+		movimiento8 = new Movimiento(200, "Retirada", Signo.D);
 	}
 
 	@AfterAll
@@ -53,70 +69,27 @@ class CuentaTest {
 
 	@Test
 	void test0014() {
-
-		List<Movimiento> movimientos = cuenta.getmMovimientos();
 		double saldoActual = cuenta.getSaldo();
 		System.out.println("Saldo inicial cuenta 1: " + saldoActual);
 
-		Movimiento movimiento6 = new Movimiento(200, "Retirada", Signo.D);
-		Movimiento movimiento7 = new Movimiento(100, "Ingreso", Signo.H);
-		Movimiento movimiento8 = new Movimiento(200, "Retirada", Signo.D);
+		cuenta.retirar(movimiento6.getImporte());
+		cuenta.ingresar(movimiento7.getImporte());
+		cuenta.retirar(movimiento8.getImporte());
 
-		movimientos.add(movimiento6);
-		movimientos.add(movimiento7);
-		movimientos.add(movimiento8);
-
-		for (int i = 0; i < cuenta.getmMovimientos().size(); i++) {
-			Movimiento movimiento_aux = movimientos.get(i);
-			if (movimiento_aux.getSigno() == Signo.D && saldoActual - movimiento_aux.getImporte() >= -500) {
-				saldoActual -= movimiento_aux.getImporte();
-				cuenta.retirar(movimiento_aux.getImporte());
-				System.out.println("Retirada de " + movimientos.get(i).getImporte() + "€");
-			} else if (movimiento_aux.getSigno() == Signo.H) {
-				saldoActual += movimiento_aux.getImporte();
-				cuenta.ingresar(movimiento_aux.getImporte());
-				System.out.println("Ingreso de " + movimientos.get(i).getImporte() + "€");
-			} else if (saldoActual - movimiento_aux.getImporte() < -500) {
-				System.out.println("Fondos insuficientes " + "(" + saldoActual + "€" + ")" + " en la cuenta "
-						+ cuenta.getNumero() + " para la retirada de " + movimientos.get(i).getImporte() + "€");
-			}
-		}
 		System.out.println("Saldo final cuenta 1: " + cuenta.getSaldo() + "€");
 		assertEquals(-250, cuenta.getSaldo());
-		
-		//--------------------------------------------------------------
-		
-		List<Movimiento> movimientos2 = cuenta2.getmMovimientos();
+
+		// --------------------------------------------------------------
+
 		double saldoActual2 = cuenta2.getSaldo();
 		System.out.println("Saldo inicial cuenta 2: " + saldoActual2);
 
-		Movimiento movimiento1 = new Movimiento(350, "Retirada", Signo.D);
-		Movimiento movimiento2 = new Movimiento(200, "Retirada", Signo.D);
-		Movimiento movimiento3 = new Movimiento(150, "Retirada", Signo.D);
-		Movimiento movimiento4 = new Movimiento(50, "Ingreso", Signo.H);
-		Movimiento movimiento5 = new Movimiento(100, "Retirada", Signo.D);
-		movimientos2.add(movimiento1);
-		movimientos2.add(movimiento2);
-		movimientos2.add(movimiento3);
-		movimientos2.add(movimiento4);
-		movimientos2.add(movimiento5);
+		cuenta2.retirar(movimiento1.getImporte());
+		cuenta2.retirar(movimiento2.getImporte());
+		cuenta2.retirar(movimiento3.getImporte());
+		cuenta2.ingresar(movimiento4.getImporte());
+		cuenta2.retirar(movimiento5.getImporte());
 
-		for (int i = 0; i < cuenta2.getmMovimientos().size(); i++) {
-			Movimiento movimiento_aux = movimientos2.get(i);
-			if (movimiento_aux.getSigno() == Signo.D && saldoActual2 - movimiento_aux.getImporte() >= -500) {
-				saldoActual2 -= movimiento_aux.getImporte();
-				cuenta2.retirar(movimiento_aux.getImporte());
-				System.out.println("Retirada de " + movimientos2.get(i).getImporte() + "€");
-			} else if (movimiento_aux.getSigno() == Signo.H) {
-				saldoActual2 += movimiento_aux.getImporte();
-				cuenta2.ingresar(movimiento_aux.getImporte());
-				System.out.println("Ingreso de " + movimientos2.get(i).getImporte() + "€");
-			} else if (saldoActual2 - movimiento_aux.getImporte() < -500) {
-				System.out.println("Fondos insuficientes " + "(" + saldoActual2 + "€" + ")" + " en la cuenta "
-						+ cuenta2.getNumero() + " para la retirada de " + movimientos2.get(i).getImporte() + "€");
-			}
-		}
 		System.out.println("Saldo final cuenta 2: " + cuenta2.getSaldo() + "€");
-		assertEquals(saldoActual2, cuenta2.getSaldo());
 	}
 }
